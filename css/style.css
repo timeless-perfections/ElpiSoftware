@@ -14,3 +14,80 @@ main {
     padding: 2em;
     text-align: center;
 }
+
+/* Logo Strip */
+.logo-strip {
+    padding: 1rem 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-strip h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin: 0 0 1rem;
+}
+
+.logos-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.logos-container img {
+    filter: grayscale(100%) opacity(0.6);
+    transition: filter 0.3s ease;
+}
+
+.logos-container img:hover {
+    filter: none;
+}
+
+/* Services Section */
+.services {
+    padding: 4rem 0;
+}
+
+.services h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.service-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-5px);
+}
+
+.service-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.service-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+}
+
+.service-card p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
