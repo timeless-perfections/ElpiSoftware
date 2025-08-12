@@ -1,174 +1,239 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elpis Software - Yalın Teknoloji Partneriniz</title>
-    <meta name="description" content="Elpis Software, B2B şirketler için esnek ve sonuç odaklı teknoloji çözümleri sunar. Gereksiz ajans maliyetleri olmadan, projenize özel uzmanlarla ilerleyin.">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Elpis Software — Coming Soon</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0D0D0D"/>
+
+<style>
+  :root{
+    /* soft gold palet (yumuşatıldı) */
+    --gold-1:#B8860B; --gold-2:#DAA520; --gold-3:#CD853F;
+    --gold-soft:#D0B35A;              /* ana metin/çizgi */
+    --gold-soft-2:#C7A553;            /* hover/geçiş */
+    --bg-1:#0D0D0D; --bg-2:#232220; --bg-3:#333230;
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{
+    margin:0; color:var(--gold-soft);
+    font:16px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+    background: radial-gradient(1200px 800px at 70% 25%, var(--bg-3) 0%, var(--bg-2) 42%, var(--bg-1) 100%);
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    scroll-behavior:smooth;
+  }
+
+  /* video + altın tint + yumuşak geometrik desen */
+  .bg{position:fixed; inset:0; z-index:-5; overflow:hidden}
+  .bg video{width:100%; height:100%; object-fit:cover; filter:contrast(1.03) brightness(.48) saturate(.9)}
+  @media (prefers-reduced-motion:reduce){.bg video{display:none}}
+  .gold-tint{position:fixed; inset:0; z-index:-4; pointer-events:none;
+    background:
+      radial-gradient(60% 60% at 50% 50%, rgba(205,133,63,.16) 0 55%, rgba(0,0,0,.62) 100%),
+      linear-gradient(180deg, rgba(184,134,11,.22), rgba(13,10,6,.85));
+    mix-blend-mode:multiply;
+  }
+  .geo{position:fixed; inset:0; z-index:-3; pointer-events:none; opacity:.18}
+  .geo::before{
+    content:""; position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(45deg, rgba(208,179,90,.12) 0 1px, transparent 1px 56px),
+      repeating-linear-gradient(-45deg, rgba(208,179,90,.12) 0 1px, transparent 1px 56px);
+  }
+
+  /* logo paneli */
+  .brand-box{
+    position:fixed; top:24px; left:24px; z-index:6;
+    width:148px; height:148px; border-radius:10px;
+    background:rgba(0,0,0,.36); backdrop-filter:blur(8px);
+    border:1px solid rgba(208,179,90,.3);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(0,0,0,.5);
+  }
+  .brand-img{width:96px; height:auto; object-fit:contain; filter:drop-shadow(0 2px 8px rgba(0,0,0,.35));}
+
+  main{min-height:auto} /* boşluk nedeni buydu: 200vh kaldırıldı */
+
+  /* HERO */
+  .hero{min-height:100dvh; display:grid; place-items:center; position:relative; padding:96px 16px 40px;}
+  .cluster{position:relative; width:clamp(380px, 48vw, 820px); aspect-ratio:1/1;}
+  canvas#ticks, canvas#second{position:absolute; inset:0; width:100%; height:100%; display:block}
+  /* merkez yazılar + süs çizgileri */
+  .center-label{position:absolute; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px;
+    color:rgba(208,179,90,.88); font-weight:700; letter-spacing:.25rem; text-transform:uppercase}
+  .center-label .line{width:80px; height:1px; background:rgba(208,179,90,.88)}
+  .top-label{top:34%}
+  .bottom-label{bottom:32%}
+
+  .scroll-down{
+    position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+    width:42px; height:42px; display:grid; place-items:center; border-radius:6px;
+    border:1px solid rgba(208,179,90,.45); color:var(--gold-soft); text-decoration:none; background:rgba(0,0,0,.35); backdrop-filter:blur(6px);
+  }
+  .scroll-down:hover{border-color:rgba(208,179,90,.7)}
+
+  /* hero->alt bölüm geçişi (yumuşak, ama yüksekliği az) */
+  .fade-below{height:64px; margin-top:-32px; background:linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 100%);}
+
+  /* ALT BÖLÜM: siyah + soft gold */
+  .dark-section{background:#000; color:var(--gold-soft); text-align:center; padding:56px 16px 48px;}
+  .dark-section h2{
+    margin:0 0 12px; font-weight:900; letter-spacing:.14rem; text-transform:uppercase;
+    font-size:clamp(22px,3.2vw,36px);
+    background:linear-gradient(180deg, var(--gold-soft), var(--gold-1));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .dark-section .lead{max-width:900px; margin:0 auto 24px; opacity:.9; font-weight:600; color:var(--gold-soft);}
+  .actions{display:flex; flex-wrap:wrap; gap:12px; justify-content:center}
+  .btn{
+    --_bg:transparent; --_fg:var(--gold-soft); --_bd:rgba(208,179,90,.35);
+    display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:10px;
+    border:1px solid var(--_bd); background:var(--_bg); color:var(--_fg);
+    text-decoration:none; font-weight:800; letter-spacing:.03em; transition:transform .15s ease, border-color .2s ease, background .2s ease;
+  }
+  .btn:hover{transform:translateY(-1px); border-color:rgba(208,179,90,.55)}
+  .btn.accent{--_bg:linear-gradient(180deg, var(--gold-soft), var(--gold-1)); --_fg:#111; --_bd:#0006}
+  .btn.accent:hover{--_bg:linear-gradient(180deg, var(--gold-soft-2), var(--gold-1))}
+
+  footer{background:#000; color:var(--gold-soft); border-top:1px solid rgba(208,179,90,.25); padding:16px; text-align:center}
+  .to-top{
+    position:fixed; right:24px; bottom:24px; width:44px; height:44px; border-radius:8px;
+    display:grid; place-items:center; text-decoration:none; color:#111;
+    background:linear-gradient(180deg, var(--gold-soft), var(--gold-1));
+    border:1px solid #0004; box-shadow:0 8px 24px rgba(0,0,0,.6);
+  }
+  .to-top:hover{background:linear-gradient(180deg, var(--gold-soft-2), var(--gold-1))}
+</style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <div class="logo">
-                    <a href="#">Elpis Software</a>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="#services">Hizmetler</a></li>
-                    <li><a href="#why-us">Neden Biz</a></li>
-                    <li><a href="#process">Süreç</a></li>
-                </ul>
-                <a href="#contact" class="btn btn-primary">Görüşme Planla</a>
-            </nav>
-        </div>
-    </header>
+  <!-- Video -->
+  <div class="bg" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata" poster="assets/hero-poster.jpg">
+      <source src="assets/hero.webm" type="video/webm"/>
+      <source src="assets/hero.mp4" type="video/mp4"/>
+      <img src="assets/hero-poster.jpg" alt="">
+    </video>
+  </div>
+  <div class="gold-tint" aria-hidden="true"></div>
+  <div class="geo" aria-hidden="true"></div>
 
-    <main>
-        <section class="hero" id="hero">
-            <div class="container hero-container">
-                <div class="hero-content">
-                    <h1>Gereksiz ajans maliyetleri olmadan, projenize özel uzmanlarla ilerleyin.</h1>
-                    <p class="hero-subtitle">Biz, kanıtlanmış uzmanlardan oluşan esnek bir ağız. Süreci şeffaf ve ölçülebilir kılar, siz stratejiye odaklanırken işi güvenle ilerletiriz.</p>
-                    <div class="hero-cta">
-                        <a href="#contact" class="btn btn-primary">Görüşme Planla</a>
-                        <a href="#services" class="btn btn-secondary">Hizmetleri Gör</a>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="visual-placeholder"></div>
-                </div>
-            </div>
-        </section>
+  <!-- Logo -->
+  <div class="brand-box">
+    <img class="brand-img" src="assets/elpis-logo.png" alt="Elpis Software Logo"/>
+  </div>
 
-        <section class="logo-strip">
-            <div class="container">
-                <h2 class="strip-title">BİZE GÜVENENLER</h2>
-                <div class="logos-container">
-                    <p class="logo-placeholder">MARKA 1</p>
-                    <p class="logo-placeholder">MARKA 2</p>
-                    <p class="logo-placeholder">MARKA 3</p>
-                    <p class="logo-placeholder">MARKA 4</p>
-                </div>
-            </div>
-        </section>
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="cluster">
+        <!-- 1) Radyal çizgiler -->
+        <canvas id="ticks"></canvas>
 
-        <section class="services" id="services">
-            <div class="container">
-                <h2>Ürünleştirilmiş Hizmetlerimiz</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon"></div>
-                        <h3>B2B Satış Odaklı Landing Tasarımı</h3>
-                        <p>İlk günden dönüşüm getirecek, satış odaklı açılış sayfası tasarımı ve teslimi.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon"></div>
-                        <h3>Startup’lar için Logo ve Temel Kimlik Paketi</h3>
-                        <p>Markanızın hikayesini anlatan logo, renk, tipografi ve temel kurumsal kimlik kılavuzu.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon"></div>
-                        <h3>Teknik SEO Temel Paketi</h3>
-                        <p>Sitenizin arama motoru sağlığını tarama, meta optimizasyonu ve hız önerileri ile iyileştirin.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- 2) (İSTEK ÜZERİNE) Dairesel yazı KALDIRILDI -->
 
-        <section class="why-us" id="why-us">
-            <div class="container">
-                <h2>Neden Biz?</h2>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon"></div>
-                        <h3>Esnek Uzmanlık</h3>
-                        <p>Projenizin ihtiyacına göre en doğru profesyonelleri bir araya getiriyoruz.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"></div>
-                        <h3>Maliyet Avantajı</h3>
-                        <p>Gereksiz ajans giderleri yok, sadece projeniz için gereken uzmanlığa ödeyin.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"></div>
-                        <h3>Şeffaf Süreç</h3>
-                        <p>Bürokrasi olmadan, projenize özel kurulan ekiple hızlı başlangıç ve teslimat.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="process" id="process">
-            <div class="container">
-                <h2>Nasıl Çalışıyoruz?</h2>
-                <div class="process-steps">
-                    <div class="process-step">
-                        <div class="step-number">1</div>
-                        <h3>Keşif & Strateji</h3>
-                        <p>Hedeflerinizi anlar, yol haritasını çizeriz.</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">2</div>
-                        <h3>Taslak & Prototip</h3>
-                        <p>Fikirleri somut, test edilebilir taslaklara dökeriz.</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">3</div>
-                        <h3>Geliştirme & İterasyon</h3>
-                        <p>Geri bildirimlerinizle ürünü geliştiririz.</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">4</div>
-                        <h3>Yayın & Ölçüm</h3>
-                        <p>Projenizi yayınlar, etkisini ölçeriz.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- 3) Merkez etiketler + süs çizgileri -->
+        <div class="center-label top-label"><span class="line"></span><span>OUR WEBSITE</span><span class="line"></span></div>
+        <div class="center-label bottom-label"><span class="line"></span><span>STAY HYPED</span><span class="line"></span></div>
 
-        <section class="faq" id="faq">
-            <div class="container">
-                <h2>Sıkça Sorulan Sorular</h2>
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <button class="faq-question"><span>Revizyon süreci nasıl işliyor?</span><span class="faq-toggle">+</span></button>
-                        <div class="faq-answer"><p>Her ana aşama (taslak, geliştirme) sonunda 2 tur revizyon hakkı sunuyoruz. Amacımız, en başından doğru stratejiyle revizyon ihtiyacını minimuma indirmektir.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question"><span>Proje tesliminden sonra destek sağlıyor musunuz?</span><span class="faq-toggle">+</span></button>
-                        <div class="faq-answer"><p>Evet, her projenin tesliminden sonra 30 gün boyunca ücretsiz teknik destek sağlıyoruz. Daha uzun süreli destek ve bakım için aylık paketlerimiz mevcuttur.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question"><span>Ödeme süreci nasıl ilerliyor?</span><span class="faq-toggle">+</span></button>
-                        <div class="faq-answer"><p>Genellikle %50 proje başlangıcında, %50 proje tesliminde olacak şekilde çalışıyoruz. Proje bazlı olarak farklı ödeme planları oluşturmak mümkündür.</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- 4) Uzun saniye kolu -->
+        <canvas id="second"></canvas>
+      </div>
+      <a class="scroll-down" href="#contact" aria-label="Aşağı kaydır">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </section>
 
-        <section class="final-cta" id="contact">
-            <div class="container">
-                <h2>Projenizi Konuşalım</h2>
-                <p>Fikrinizi hayata geçirmek için ilk adımı atın.</p>
-                <a href="mailto:hello@elpisoftware.com" class="btn btn-primary">Görüşme Planla</a>
-            </div>
-        </section>
-    </main>
+    <!-- yumuşak geçiş (kısaltıldı) -->
+    <div class="fade-below" aria-hidden="true"></div>
 
-    <footer class="footer">
-        <div class="container footer-container">
-            <p>© 2025 Elpis Software</p>
-            <div class="social-links">
-                <a href="#">GitHub</a>
-                <a href="#">LinkedIn</a>
-            </div>
-        </div>
-    </footer>
+    <!-- ALT BÖLÜM -->
+    <section id="contact" class="dark-section">
+      <h2>Built to Break the Mold</h2>
+      <p class="lead">Web, mobil ve performans reklamlarını <strong>sofistike</strong> bir altın dokuyla, yalın ve güçlü bir yaklaşımla tasarlıyoruz.</p>
+      <div class="actions">
+        <a class="btn accent" href="mailto:info@elpis.software?subject=Merhaba%20Elpis">İletişime Geç</a>
+        <a class="btn" href="https://wa.me/90XXXXXXXXXX?text=Merhaba%20Elpis%2C%20sunum%20iste%C4%9Fi%20i%C3%A7in%20yaz%C4%B1yorum" target="_blank" rel="noopener">Sunum İste</a>
+      </div>
+    </section>
+  </main>
 
-    <script src="js/main.js"></script>
+  <footer>© <span id="y"></span> Elpis Software</footer>
+  <a class="to-top" href="#top" aria-label="Yukarı dön">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </a>
+
+<script>
+  // yıl
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // düşük hareket / küçük ekran -> videoyu durdur
+  (function(){
+    const v = document.querySelector('.bg video');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const small = matchMedia('(max-width: 640px)').matches;
+    const conn = navigator.connection?.effectiveType;
+    const slow = conn && ['slow-2g','2g'].includes(conn);
+    if (reduce || small || slow) { try{ v.pause(); v.removeAttribute('autoplay'); v.load(); }catch(e){} }
+  })();
+
+  // Radyal çizgiler + saniye kolu (soft gold)
+  (function(){
+    const ticks = document.getElementById('ticks');
+    const second = document.getElementById('second');
+    const tctx = ticks.getContext('2d');
+    const sctx = second.getContext('2d');
+
+    function fit(canvas, ctx){
+      const base = Math.round(Math.min(1000, Math.max(520, canvas.parentElement.clientWidth)));
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      canvas.width = base * dpr; canvas.height = base * dpr;
+      canvas.style.width = base+'px'; canvas.style.height = base+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    function fitAll(){ fit(ticks, tctx); fit(second, sctx); drawTicks(); }
+
+    function drawTicks(){
+      const w = ticks.clientWidth, h = ticks.clientHeight, r = Math.min(w,h)/2;
+      const g = getComputedStyle(document.documentElement).getPropertyValue('--gold-soft').trim() || '#D0B35A';
+      tctx.clearRect(0,0,w,h);
+      tctx.save(); tctx.translate(w/2,h/2); tctx.lineCap='butt';
+
+      for(let i=0;i<24;i++){
+        const ang = (i/24)*Math.PI*2;
+        const long = i%2===0;
+        const inner = long ? r*0.52 : r*0.58;
+        const outer = long ? r*0.82 : r*0.70;
+        tctx.save(); tctx.rotate(ang);
+        tctx.beginPath();
+        tctx.moveTo(inner,0); tctx.lineTo(outer,0);
+        tctx.lineWidth = long ? Math.max(2, r*0.012) : Math.max(1, r*0.006);
+        tctx.strokeStyle = g;
+        tctx.globalAlpha = long ? 0.9 : 0.55; /* yumuşak kontrast */
+        tctx.stroke(); tctx.restore();
+      }
+      tctx.restore();
+    }
+
+    function drawSecond(){
+      const w = second.clientWidth, h = second.clientHeight, r = Math.min(w,h)/2;
+      const g = getComputedStyle(document.documentElement).getPropertyValue('--gold-soft').trim() || '#D0B35A';
+      sctx.clearRect(0,0,w,h);
+      sctx.save(); sctx.translate(w/2,h/2); sctx.lineCap='butt';
+      const now = new Date(); const sec = now.getSeconds() + now.getMilliseconds()/1000;
+      sctx.rotate(sec*Math.PI/30);
+      sctx.strokeStyle = g; sctx.globalAlpha=.95; sctx.lineWidth=r*0.014;
+      sctx.beginPath(); sctx.moveTo(-r*0.10,0); sctx.lineTo(r*0.90,0); sctx.stroke();
+      sctx.restore();
+      requestAnimationFrame(drawSecond);
+    }
+
+    window.addEventListener('resize', fitAll, {passive:true});
+    fitAll(); drawSecond();
+    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ fitAll(); } });
+  })();
+</script>
 </body>
 </html>
